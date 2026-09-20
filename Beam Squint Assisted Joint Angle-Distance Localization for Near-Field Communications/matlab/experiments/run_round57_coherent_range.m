@@ -113,6 +113,10 @@ writetable(summary.aggregateToPA, fullfile(folder, "bootstrap_to_pa.csv"));
 writetable(summary.aggregateToPFALF, ...
     fullfile(folder, "bootstrap_to_pfalf.csv"));
 writetable(summary.predictions, fullfile(folder, "predictions.csv"));
+writetable(summary.diagnostics.ratioBySnr, ...
+    fullfile(folder, "diagnostic_ratio_by_snr.csv"));
+writetable(summary.diagnostics.supersededG9, ...
+    fullfile(folder, "diagnostic_superseded_gate.csv"));
 writetable(summary.gate, fullfile(folder, "gate.csv"));
 writetable(runtime, fullfile(folder, "runtime.csv"));
 
@@ -135,6 +139,8 @@ fprintf("ROUND57_PFACR_%s_COMPLETE pass=%d rows=%d failures=0\n", ...
 disp(summary.gate);
 disp(summary.efficiency);
 disp(summary.predictions);
+disp(summary.diagnostics.ratioBySnr);
+disp(summary.diagnostics.supersededG9);
 end
 
 function output = loadCheckpoint(file, count, identity, resume)
