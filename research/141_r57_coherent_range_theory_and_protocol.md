@@ -653,6 +653,14 @@ protocol.freeze       = 冻结 R53/R45 摘要哈希；modifyFrozenMethods = fals
 | G7 | `>1 m` 失捕率相对 P_FALF | 不增加 |
 | G8 | 预言P1：`P_FACR_T` / `P_FALF` 聚合MSE比 | 落在 `[0.85,1.15]` |
 | G9 | 预言P3：`P_FACR` 逐SNR MSE/P_A 比值极差 | `< 10` |
+| G10 | **matched timing：完整在线运行时间 / `C_enhanced`** | `< 1`（保护Attack E） |
+
+G10为新增，理由见第9.1节：Attack E（复杂度）是已冻结的论文贡献之一，
+R53实测 `P_FALF/C_enhanced = 0.39458`（8.0974 s vs 20.5216 s/user）。
+R57把距离粗网格由81点增至161点，估计整体增加15~25%，预计比值约 `0.45~0.50`，
+仍远小于1——**但这是估计，必须由与R53同协议的matched timing实测确认。**
+若G10不通过，Attack E受损，此时应先实现快速评估（相干score在 `r` 上可拆为
+快变时延相位与慢变曲率项，曲率项可在稀疏网格上复用），而不是放宽G10。
 
 注意G4的门限是 `0.10` 而非 `1.02`：R57若成立，应当是**强优效**而非"非劣"。
 把门限设在预期值（`~1e-4`）之上3个数量级，既留足有限样本与几何异质性余量，
@@ -770,6 +778,66 @@ Y相干only与z+Y相干几乎相同（`1.5916e-04` vs `1.5927e-04`），证实�
 若R57成立，该比值将进入 `1e-5 ~ 1e-6` 量级。**攻击强度从"改善40~49%"变为"改善5~6个数量级"，
 但论证重心必须同时从"我们的算法更好"转为"该模型的距离信息被前端结构性丢弃"**——
 后者是更强、更难反驳、也更诚实的贡献陈述。
+
+---
+
+## 9.1 R57 与已冻结攻击矩阵（research/65）的对照
+
+R57 不修改攻击矩阵的任何既有条目。逐条影响如下：
+
+| 攻击点 | R57 的影响 | 说明 |
+|---|---|---|
+| A 粗中心依赖的可行支持 | **不变（略有锐化）** | R57 仍使用 L06 前端 `±2 m` 窗口，粗中心依赖原样保留 |
+| B truth 落在局部支持之外 | **锐化** | 窗内 R57 误差降到 `1e-4 m` 量级，**窗口失败成为唯一残余误差机制**，Attack B 的归因变干净 |
+| C joint 搜索不保证距离精化 | **显著强化，且性质改变** | 见下 |
+| D 降维保持角度 | **不变** | 角度逐行严格等于 P_FA，不触碰该攻击 |
+| E 复杂度 | **有风险，由 G10 保护** | R53 实测 `P_FALF/C_enhanced=0.39458`；R57 预计 `0.45~0.50`，需实测确认 |
+| F 本方法的局限 | **一增一减** | 去掉"高SNR增量近零甚至微负"这一弱点（R57 增益与 SNR 无关）；但**对已校准公共时延的依赖从脚注升为主导误差项** |
+
+### Attack C 的强化方式与禁止写法
+
+矩阵中 Attack C 已经写明两件事，R57 正好接在其后：
+
+1. 已有表述："`J_P=log(|q^H z|^2/(||q||^2 ||z||^2))` 消去公共复增益，**但不消去公共时延**"；
+2. 已有表述："MUSIC距离统计来自Y的空间子空间，profile来自z的相干宽带信息"。
+
+R57 增加的是一条**关于统计量本身的信息损失定理**，而不是目标函数优劣比较：
+
+> 对Y作每载波自由复增益（等价地：逐载波协方差/子空间）处理，**精确地**消去共模时延通道，
+> 只保留曲率通道；在本文参数下曲率通道比时延通道弱 `213~9464` 倍（标准差，定理2闭式）。
+> 因此该类统计量对 `r` **不是充分统计量**，其信息损失是结构性的、可闭式计算的。
+
+**允许的论文表述（建议模板）**：
+
+> "Per-carrier gain nuisance -- equivalently, per-carrier covariance or subspace statistics --
+> annihilates the common-mode delay component of the range gradient exactly, leaving only the
+> array-curvature component. Under the model of [Zhang2026, Eqs. (27)-(28)] this discards a
+> factor of 213 to 9464 in range standard deviation over the 15-50 m, +-60 deg support."
+
+**禁止的表述**（与矩阵既有禁令一致，必须继续遵守）：
+
+- "Under exactly identical information, our objective is theoretically superior to MUSIC."
+  ——R57 的论证是**统计量的充分性**，不是相同信息下的目标函数优越性。两者必须区分。
+- "robust to timing offset" ——R57 使这条禁令**更加**必要，不是更不必要。
+- 任何把 R57 写成"只有我们能做到"的表述。相干项可以被任何方法（包括 Zhang-style）
+  一行加入；R57 的贡献是**指出该信息被整类方法结构性丢弃**，不是独占性优势。
+
+### 与 R32 时延敏感性的独立吻合
+
+矩阵 Attack F 已记录："R32 `±0.1 ns` 对应约 `±0.03 m` 距离平移"。
+本文 3.6 节的混合 CRLB 给出 `sigma_r ≈ c*sigma_tau`，而 `c x 1e-10 s = 0.02998 m`。
+**两条独立证据精确吻合**，说明 3.6 节的敏感性表可以直接引用 R32 的既有实测作为交叉验证。
+
+### 对现有贡献结构的影响（必须由人决定，本文不代为决定）
+
+pilot 显示 `P_FACR_Yonly` 与 `P_FACR` 几乎相同（`1.5916e-04` vs `1.5927e-04` m）。
+若该结论在 R57 development 中复现，则**一旦 Y 块相干，z 的条件 profile 对最终距离的
+边际贡献可忽略**——这直接削弱已冻结的 **Contribution 2**（"conditional complex-spectrum
+profiling for the final range"）。
+
+同时，Contribution 4 的量级（range RMSE 下降 `3.05%~49.63%`）与 R57 的量级
+（`5~6` 个数量级）不在同一叙事层面。**这不是技术问题，是论文结构问题**，
+必须在 R57 development 出结果之后、投稿之前由人决定，本文不做选择。
 
 ---
 
