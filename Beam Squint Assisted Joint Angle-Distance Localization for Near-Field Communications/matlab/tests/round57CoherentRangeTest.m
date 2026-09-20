@@ -158,6 +158,64 @@ classdef round57CoherentRangeTest < matlab.unittest.TestCase
             testCase.verifyTrue(isnan(single.P_FACR_T));
         end
 
+        function testHybridBoundReproducesBothLimits(testCase)
+            % sigmaTau = 0 must give the coherent bound and a very large
+            % sigmaTau must give the free-alpha bound, since a free delay
+            % removes exactly what a free per-carrier gain removes.
+            protocol = r57.config();
+            cfg = jad.defaultConfig();
+            scan = fsjad.prepareScan(cfg);
+            design = r57.design(protocol, "smoke");
+            replay = fsjad.replayRound27Data(cfg, scan, design(1, :));
+            carrierIndex = (0:protocol.base.base.pfa.carrierCount-1).';
+            context = r42.prepareContext(cfg, scan, replay.observation, ...
+                replay.snapshots(:, carrierIndex+1), carrierIndex);
+            known = r57.crlb(cfg, context, 20, 25, -10, 0);
+            loose = r57.crlb(cfg, context, 20, 25, -10, 1e-3);
+            testCase.verifyEqual(known.hybridStdM, known.coherentStdM, ...
+                "RelTol", 1e-12);
+            testCase.verifyEqual(loose.hybridStdM, loose.freeAlphaStdM, ...
+                "RelTol", 1e-6);
+            middle = r57.crlb(cfg, context, 20, 25, -10, 1e-11);
+            testCase.verifyGreaterThan(middle.hybridStdM, known.coherentStdM);
+            testCase.verifyLessThan(middle.hybridStdM, loose.freeAlphaStdM);
+        end
+
+        function testDelayInjectionLeavesTheArrayMagnitudeUnchanged(testCase)
+            % The injected phase is constant across the aperture, so it can
+            % change neither per-element magnitudes nor the scalar block in
+            % array mode.
+            protocol = r57.config();
+            cfg = jad.defaultConfig();
+            scan = fsjad.prepareScan(cfg);
+            design = r57.stressDesign(protocol);
+            replay = fsjad.replayRound27Data(cfg, scan, design(1, :));
+            injected = r57.injectDelay(cfg, replay.observation, ...
+                replay.snapshots, 1e-9, "array");
+            testCase.verifyEqual(injected.observation, replay.observation);
+            testCase.verifyEqual(abs(injected.snapshots), ...
+                abs(replay.snapshots), "RelTol", 1e-12);
+            common = r57.injectDelay(cfg, replay.observation, ...
+                replay.snapshots, 1e-9, "common");
+            testCase.verifyNotEqual(common.observation, replay.observation);
+            testCase.verifyEqual(abs(common.observation), ...
+                abs(replay.observation), "RelTol", 1e-12);
+        end
+
+        function testStressDesignIsBalancedAndIsolated(testCase)
+            protocol = r57.config();
+            design = r57.stressDesign(protocol);
+            testCase.verifyEqual(height(design), ...
+                protocol.stress.expectedRows);
+            testCase.verifyFalse(protocol.stress.entersPrimaryJudgement);
+            % the same data seed must be reused across every jitter level
+            first = design(design.positionId == 1 & design.snrDb == 0, :);
+            testCase.verifyEqual(numel(unique(first.seed)), 1);
+            testCase.verifyEqual(numel(unique(first.sigmaTauSeconds)), ...
+                numel(protocol.stress.sigmaTauSeconds));
+            testCase.verifyEqual(numel(unique(first.tauSeed)), height(first));
+        end
+
         function testGateLimitsAreNotWeakenedRelativeToR56(testCase)
             protocol = r57.config();
             testCase.verifyEqual( ...
