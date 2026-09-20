@@ -26,16 +26,17 @@ for index = 1:numel(files)
         static = [static; entry]; %#ok<AGROW>
     end
 end
-syntax = static(contains(static.identifier, ...
-    ["MDOTM", "SYNER", "BDOTM", "END", "PFDF"]), :);
-fprintf("R57 preflight: %d checkcode messages, %d look like syntax faults\n", ...
-    height(static), height(syntax));
+% Any checkcode message blocks. An earlier version filtered on a hand-picked
+% list of identifiers and reported "0 syntax faults" while fromFront.m was
+% broken: checkcode had flagged FVSOR (arguments block does not match the
+% function line) and the filter dropped it. R57 code is expected to be
+% checkcode-clean, so the threshold is zero and nothing is filtered.
+fprintf("R57 preflight: %d checkcode messages (threshold 0)\n", height(static));
 if ~isempty(static)
     disp(static);
-end
-if ~isempty(syntax)
-    error("r57:StaticSyntaxFault", ...
-        "Resolve the R57 syntax faults before running any stage.");
+    error("r57:StaticAnalysisNotClean", ...
+        "Resolve all %d checkcode messages before running any R57 stage.", ...
+        height(static));
 end
 
 unitResults = runtests(fullfile(project, "tests", ...
