@@ -1,0 +1,7 @@
+{错误使用 r34.assertFinalTestAuthorized (第 11 行)
+The R34 final test is locked and no authorization exists.
+
+出错 run_round34_final_shard (第 26 行)
+r34.assertFinalTestAuthorized(packageFolder, saved.identity);
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 

@@ -1,0 +1,53 @@
+function setup = round28FrontV2Setup(project)
+%ROUND28FRONTV2SETUP Freeze the deterministic front candidate closure.
+
+arguments
+    project (1, 1) string
+end
+
+base = fsjad.round27Setup(project, 1000, "formal");
+targetSeeds = [36200034; 36300058; 36200114; 36400431; ...
+    36200073; 36200111; 36200127; 36200175; 36300167];
+[present, locations] = ismember(targetSeeds, base.design.seed);
+assert(all(present), "fsjad:Round28FrontV2MissingSeed");
+
+setup.cfg = base.cfg;
+setup.algorithm = base.zhang;
+setup.design = base.design(locations, :);
+setup.protocol.version = "Round28-front-candidate-closure-v2";
+setup.protocol.frontVersion = "FS-Front-Deterministic-Multipeak-R28-v2";
+setup.protocol.targetSeeds = targetSeeds;
+setup.protocol.serialRepeatSeeds = targetSeeds(1);
+setup.protocol.iterationCaps = [200, 400, 800];
+setup.protocol.stepTolerance = 1e-6;
+setup.protocol.initialSpacingM = 0.05;
+setup.protocol.minimumIntervals = 40;
+setup.protocol.refinementLevels = 3;
+setup.protocol.peakCount = 16;
+setup.protocol.tolX = 1e-6;
+setup.protocol.scoreTolerance = 1e-10;
+setup.protocol.rangeMergeToleranceM = 1e-5;
+setup.protocol.selectionRule = ...
+    "maximum normalized concentrated-likelihood over frozen candidates";
+setup.protocol.truthUsedForSelection = false;
+setup.protocol.oldAlphaActive = false;
+setup.protocol.formalPerformanceClaim = false;
+setup.protocol.round28FixedAngle600Authorized = false;
+
+paths = ["+fsjad/deterministicMultipeakFrontEstimate.m"; ...
+    "+fsjad/round28FrontV2Setup.m"; ...
+    "+fsjad/findRangePeakCandidates.m"; ...
+    "+fsjad/maximizeRangeScore.m"; ...
+    "+fsjad/fixedAngleProfileLogScore.m"; ...
+    "+fsjad/refineProfileMonotone.m"; ...
+    "+fsjad/exactSpectralResponse.m"; ...
+    "+fsjad/profileScore.m"; ...
+    "+fsjad/replayRound27Data.m"; ...
+    "+fsjad/round27Setup.m"; ...
+    "+fsjad/sourceHashManifest.m"; ...
+    "experiments/run_round28_front_candidate_closure_v2.m"; ...
+    "experiments/preflight_round28_front_v2.m"; ...
+    "tests/deterministicMultipeakFrontTest.m"; ...
+    "tests/maximizeRangeScoreTest.m"];
+setup.source = fsjad.sourceHashManifest(project, paths);
+end

@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2509.14850v2",
+  "title": "Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications",
+  "abstract": "With the advent of extremely large-scale MIMO (XL-MIMO), mmWave/THz bands and ultra-wideband transmission, future 6G systems demand real-time positioning with centimeter or even millimeter level accuracy. This paper addresses the pronounced near-field beam squint problem caused by phase shifter based beamforming in wideband near-field scenarios and proposes a beam squint assisted joint angle-distance localization scheme. The key idea is to employ true-time-delay (TTD) units together with phase shifters (PS) to synthesize a controllable joint angle-distance (JAD) trajectory that establishes a unique mapping between subcarriers and spatial locations, enabling single scan acquisition of target angle and range. To implement this paradigm efficiently, we design a coarse to fine two stage estimator: a low complexity coarse stage based on subcarrier power peaks for user separation and candidate region selection, followed by a local high resolution refinement stage that applies spatial smoothing and near-field multiple signal classification (MUSIC) over multiple subcarriers and fuses the resulting spectra by geometric averaging to suppress spurious peaks. We theoretically prove the correctness and uniqueness of the MUSIC spatial spectrum peak under the proposed near-field steering model, and derive the Cramér-Rao lower bound (CRLB) for joint angle-distance estimation. Simulation results in single and multi-user scenarios validate that the proposed method achieves very high accuracy and robustness, significantly outperforming conventional two-step approaches, and is promising for practical 6G sensing and localization deployments.",
+  "authors": [
+    "Aibiao Zhang",
+    "Weizheng Zhang",
+    "Chiya Zhang"
+  ],
+  "published": "2025-09-18T11:15:27Z",
+  "updated": "2025-09-19T01:35:16Z",
+  "comment": "",
+  "journal_ref": "",
+  "doi": "",
+  "primary_category": "cs.IT",
+  "categories": [
+    "cs.IT"
+  ],
+  "abs_url": "https://arxiv.org/abs/2509.14850v2",
+  "pdf_url": "https://arxiv.org/pdf/2509.14850v2.pdf",
+  "source_url": "https://arxiv.org/e-print/2509.14850v2",
+  "paper_dir": "G:\\研究生\\Github\\Luo2024与Zhang2026\\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications",
+  "pdf_path": "G:\\研究生\\Github\\Luo2024与Zhang2026\\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications.pdf",
+  "source_path": "G:\\研究生\\Github\\Luo2024与Zhang2026\\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\\arXiv-2509.14850v2.tar.gz",
+  "source_extract_dir": null,
+  "report_path": "G:\\研究生\\Github\\Luo2024与Zhang2026\\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications_报告.md",
+  "downloaded_at": "2026-08-31T08:38:09.196289+00:00"
+}

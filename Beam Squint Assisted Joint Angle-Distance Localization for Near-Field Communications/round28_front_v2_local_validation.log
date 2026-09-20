@@ -1,0 +1,111 @@
+正在运行 maximizeRangeScoreTest
+......
+已完成 maximizeRangeScoreTest
+__________
+
+正在运行 deterministicMultipeakFrontTest
+....
+已完成 deterministicMultipeakFrontTest
+__________
+
+ROUND28_FRONT_V2_PREFLIGHT_COMPLETE G:\研究生\Github\Luo2024与Zhang2026\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\matlab\results\full_spectrum\round28_front_candidate_preflight_v2
+正在运行 algorithmEstimateTest
+.....
+已完成 algorithmEstimateTest
+__________
+
+正在运行 algorithmVersionTest
+.......
+已完成 algorithmVersionTest
+__________
+
+正在运行 deterministicMultipeakFrontTest
+....
+已完成 deterministicMultipeakFrontTest
+__________
+
+正在运行 localMusicLogScoreTest
+....
+已完成 localMusicLogScoreTest
+__________
+
+正在运行 localMusicSpectrumTest
+..
+已完成 localMusicSpectrumTest
+__________
+
+正在运行 localSpectrumDiagnosticsTest
+...
+已完成 localSpectrumDiagnosticsTest
+__________
+
+正在运行 maximizeRangeScoreTest
+......
+已完成 maximizeRangeScoreTest
+__________
+
+正在运行 profileRangeAtAngleTest
+......
+已完成 profileRangeAtAngleTest
+__________
+
+正在运行 profileSnrLambdaTest
+.....
+已完成 profileSnrLambdaTest
+__________
+
+正在运行 round24ConfirmatoryTest
+......
+已完成 round24ConfirmatoryTest
+__________
+
+正在运行 round27ConvergenceTest
+.......
+已完成 round27ConvergenceTest
+__________
+
+正在运行 round27PublishedFormulaAuditTest
+...
+已完成 round27PublishedFormulaAuditTest
+__________
+
+正在运行 round27WorkflowTest
+.....
+已完成 round27WorkflowTest
+__________
+
+正在运行 round28FixedAngleTest
+....
+已完成 round28FixedAngleTest
+__________
+
+正在运行 snrReleasedAlphaTest
+...
+已完成 snrReleasedAlphaTest
+__________
+
+正在运行 testFigures1013WithCbs
+Published Proposed and CBS-Low curves for figures [10 11 12 13] written to C:\Users\CWH\AppData\Local\Temp\tpa795907a_9f7f_4f39_aaf2_e0e2294cbc59
+..
+已完成 testFigures1013WithCbs
+__________
+
+正在运行 testFullSpectrumTheory
+.......... .......... ..........
+已完成 testFullSpectrumTheory
+__________
+
+正在运行 testJadCore
+........
+已完成 testJadCore
+__________
+
+正在运行 testPaperFigureOrganization
+Paper figures 2 written to C:\Users\CWH\AppData\Local\Temp\tp5cd76f6c_e147_467e_815b_85a22532ef90
+Published Proposed and CBS-Low curves for figures 10 written to C:\Users\CWH\AppData\Local\Temp\tp5cd76f6c_e147_467e_815b_85a22532ef90
+Organized paper figures [2 10] are available in C:\Users\CWH\AppData\Local\Temp\tp5cd76f6c_e147_467e_815b_85a22532ef90
+.
+已完成 testPaperFigureOrganization
+__________
+
+TOTAL 111 PASSED 111 FAILED 0 INCOMPLETE 0

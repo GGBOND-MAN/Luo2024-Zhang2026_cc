@@ -1,0 +1,8 @@
+正在使用 'Threads' 配置文件启动并行池(parpool)...
+已连接到具有 8 个工作进程的并行池。
+R28 shard 1/1: 8/30, session 0.02 h
+R28 shard 1/1: 16/30, session 0.04 h
+R28 shard 1/1: 24/30, session 0.06 h
+R28 shard 1/1: 30/30, session 0.08 h
+ROUND28_SHARD_COMPLETE G:\研究生\Github\Luo2024与Zhang2026\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\matlab\results\full_spectrum\round28_v1_development_0010_per_snr\shard_01_of_01
+使用 'Threads' 配置文件的并行池正在关闭。

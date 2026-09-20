@@ -1,0 +1,13 @@
+{错误使用 matlab.internal.math.reducebygroup (第 317 行)
+无法将方法 "mean" 应用于数据变量 wallSeconds_reportedTotalSeconds_frontSeconds_stateSeconds_angleOrJointSeconds_profileSeconds。
+
+出错 groupsummary (第 296 行)
+[gCount,gData,gStats,gvLabels,gStatsLabel] = matlab.internal.math.reducebygroup(T,...
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+出错 run_round32_online_timing (第 50 行)
+summary = groupsummary(output, "method", {"mean", "median", "std"}, ...
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+原因:
+    错误使用 matlab.internal.math.groupMethod2FcnHandle>@(x)mean(x,dim,'omitnan')
+    输入参数太多。
+} 

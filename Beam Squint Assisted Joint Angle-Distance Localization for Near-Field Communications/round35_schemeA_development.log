@@ -1,0 +1,34 @@
+正在使用 'Threads' 配置文件启动并行池(parpool)...
+已连接到具有 8 个工作进程的并行池。
+R35 SCHEME A: 4/60
+R35 SCHEME A: 8/60
+R35 SCHEME A: 12/60
+R35 SCHEME A: 16/60
+R35 SCHEME A: 20/60
+R35 SCHEME A: 24/60
+R35 SCHEME A: 28/60
+R35 SCHEME A: 32/60
+R35 SCHEME A: 36/60
+R35 SCHEME A: 40/60
+R35 SCHEME A: 44/60
+R35 SCHEME A: 48/60
+R35 SCHEME A: 52/60
+R35 SCHEME A: 56/60
+R35 SCHEME A: 60/60
+使用 'Threads' 配置文件的并行池正在关闭。
+{错误使用 tabular/vertcat (第 207 行)
+当使用 vertcat 串联表变量 'meanPairedSquaredErrorDifference' 时发生错误。
+
+出错 r35SummarizeSchemeA>pairedRows (第 192 行)
+output = [output; aggregate];
+         ^^^^^^^^^^^^^^^^^^^
+出错 r35SummarizeSchemeA (第 23 行)
+comparisons = [pairedRows(methodRows, "A_cont", "P_A"); ...
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+出错 run_round35_schemeA_development (第 88 行)
+summary = r35SummarizeSchemeA(design, results, commonProtocol);
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+原因:
+    错误使用 vertcat
+    要串联的数组的维度不一致。
+} 

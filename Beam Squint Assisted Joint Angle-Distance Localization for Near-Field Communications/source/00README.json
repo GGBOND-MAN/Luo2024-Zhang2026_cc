@@ -1,0 +1,17 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "Beam_Squint_Assisted_Joint_Angle-Distance_Localization_for_Near-Field_Communications.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "Beam_Squint_Assisted_Joint_Angle-Distance_Localization_for_Near-Field_Communications.bib"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2025",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}

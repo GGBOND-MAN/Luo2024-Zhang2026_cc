@@ -1,0 +1,49 @@
+function summary = summarizeBaselines(design, results, candidates)
+%SUMMARIZEBASELINES Summarize H_L/P_L and both same-front MUSIC baselines.
+
+arguments
+    design table
+    results cell
+    candidates table
+end
+
+methodNames = ["H_L", "P_L", "C_public", "C_enhanced"];
+methodColumns = [2, 3, 4, 5];
+summary = table();
+for candidateIndex = 1:height(candidates)
+    for snrDb = [-10, 0, 20]
+        rows = find(design.snrDb == snrDb);
+        for methodIndex = 1:numel(methodNames)
+            theta = cellfun(@(item) item.thetaDeg(methodColumns(methodIndex)), ...
+                results(rows, candidateIndex));
+            range = cellfun(@(item) item.rangeM(methodColumns(methodIndex)), ...
+                results(rows, candidateIndex));
+            rangeError = range-design.truthRangeM(rows);
+            angleError = theta-design.truthThetaDeg(rows);
+            xError = range.*sind(theta) ...
+                - design.truthRangeM(rows).*sind(design.truthThetaDeg(rows));
+            yError = range.*cosd(theta) ...
+                - design.truthRangeM(rows).*cosd(design.truthThetaDeg(rows));
+            seconds = nan(numel(rows), 1);
+            if methodNames(methodIndex) == "C_public"
+                seconds = cellfun(@(item) item.publicBaseline.seconds, ...
+                    results(rows, candidateIndex));
+            elseif methodNames(methodIndex) == "C_enhanced"
+                seconds = cellfun(@(item) item.enhancedBaseline.seconds, ...
+                    results(rows, candidateIndex));
+            end
+            entry = table(candidates.candidateId(candidateIndex), snrDb, ...
+                methodNames(methodIndex), numel(rows), sqrt(mean(angleError.^2)), ...
+                sqrt(mean(rangeError.^2)), sqrt(mean(xError.^2+yError.^2)), ...
+                quantile(abs(rangeError), 0.95), mean(abs(rangeError) > 1), ...
+                mean(seconds, "omitnan"), median(seconds, "omitnan"), ...
+                quantile(seconds, 0.95), max(seconds), ...
+                'VariableNames', {'candidateId', 'snrDb', 'method', 'n', ...
+                'angleRmseDeg', 'rangeRmseM', 'positionRmseM', ...
+                'p95RangeM', 'missOver1m', 'meanSeconds', ...
+                'medianSeconds', 'p95Seconds', 'maxSeconds'});
+            summary = [summary; entry]; %#ok<AGROW>
+        end
+    end
+end
+end

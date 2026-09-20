@@ -1,0 +1,5 @@
+正在使用 'Threads' 配置文件启动并行池(parpool)...
+已连接到具有 8 个工作进程的并行池。
+ROUND30_SELECTED_BASELINES_COMPLETE rows=60 candidates=2
+ROUND30_SELECTED_BASELINES_AGGREGATE_COMPLETE rows=24
+使用 'Threads' 配置文件的并行池正在关闭。

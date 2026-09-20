@@ -1,0 +1,21 @@
+正在运行 round34FinalEngineeringTest
+.......... ..
+已完成 round34FinalEngineeringTest
+__________
+
+                                      Name                                       Passed    Failed    Incomplete    Duration      Details   
+    _________________________________________________________________________    ______    ______    __________    ________    ____________
+
+    {'round34FinalEngineeringTest/finalEntryHasNoGramOption'                }    true      false       false        0.22381    {1x1 struct}
+    {'round34FinalEngineeringTest/gramCostIsRejected'                       }    true      false       false         0.1053    {1x1 struct}
+    {'round34FinalEngineeringTest/oldBootstrapExpressionCollapsesColumns'   }    true      false       false       0.082922    {1x1 struct}
+    {'round34FinalEngineeringTest/clusterBootstrapMatchesExplicitLoop'      }    true      false       false       0.016016    {1x1 struct}
+    {'round34FinalEngineeringTest/identicalErrorsAndZeroVarianceAreHandled' }    true      false       false        0.68279    {1x1 struct}
+    {'round34FinalEngineeringTest/deliberateRangeBetterAndWorseAreSeparated'}    true      false       false        0.10645    {1x1 struct}
+    {'round34FinalEngineeringTest/zeroBaselineMseDoesNotCreateAClaim'       }    true      false       false       0.033438    {1x1 struct}
+    {'round34FinalEngineeringTest/inputOrderDoesNotChangeInference'         }    true      false       false        0.16222    {1x1 struct}
+    {'round34FinalEngineeringTest/missingDuplicateAndFailedRowsAreRejected' }    true      false       false       0.047278    {1x1 struct}
+    {'round34FinalEngineeringTest/positionClustersStayOnOneFinalShard'      }    true      false       false        0.13031    {1x1 struct}
+    {'round34FinalEngineeringTest/missingAuthorizationIsRejected'           }    true      false       false       0.053383    {1x1 struct}
+    {'round34FinalEngineeringTest/checkpointRejectsIdentityDrift'           }    true      false       false       0.074037    {1x1 struct}
+

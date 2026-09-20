@@ -1,0 +1,17 @@
+# MATLAB temporary / checkpoint files
+**/checkpoint.mat
+**/*checkpoint*.mat
+
+# Simulation results
+**/result.mat
+**/*result*.mat
+**/*aggregate*.mat
+
+# Common output folders
+**/results/
+**/checkpoints/
+**/output/
+**/outputs/
+
+# MATLAB autosave
+*.asv

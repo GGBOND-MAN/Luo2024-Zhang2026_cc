@@ -1,0 +1,23 @@
+正在运行 round34FinalEngineeringTest
+.......... ....
+已完成 round34FinalEngineeringTest
+__________
+
+                                      Name                                       Passed    Failed    Incomplete    Duration       Details   
+    _________________________________________________________________________    ______    ______    __________    _________    ____________
+
+    {'round34FinalEngineeringTest/finalEntryHasNoGramOption'                }    true      false       false         0.23337    {1x1 struct}
+    {'round34FinalEngineeringTest/gramCostIsRejected'                       }    true      false       false         0.10665    {1x1 struct}
+    {'round34FinalEngineeringTest/oldBootstrapExpressionCollapsesColumns'   }    true      false       false        0.087837    {1x1 struct}
+    {'round34FinalEngineeringTest/clusterBootstrapMatchesExplicitLoop'      }    true      false       false        0.015519    {1x1 struct}
+    {'round34FinalEngineeringTest/identicalErrorsAndZeroVarianceAreHandled' }    true      false       false         0.70319    {1x1 struct}
+    {'round34FinalEngineeringTest/deliberateRangeBetterAndWorseAreSeparated'}    true      false       false         0.10569    {1x1 struct}
+    {'round34FinalEngineeringTest/deliberateAngleBetterAndWorseAreSeparated'}    true      false       false         0.12418    {1x1 struct}
+    {'round34FinalEngineeringTest/oneClusterDrawIsSharedAcrossSnr'          }    true      false       false       0.0026082    {1x1 struct}
+    {'round34FinalEngineeringTest/zeroBaselineMseDoesNotCreateAClaim'       }    true      false       false        0.028245    {1x1 struct}
+    {'round34FinalEngineeringTest/inputOrderDoesNotChangeInference'         }    true      false       false         0.15853    {1x1 struct}
+    {'round34FinalEngineeringTest/missingDuplicateAndFailedRowsAreRejected' }    true      false       false        0.052204    {1x1 struct}
+    {'round34FinalEngineeringTest/positionClustersStayOnOneFinalShard'      }    true      false       false         0.14299    {1x1 struct}
+    {'round34FinalEngineeringTest/missingAuthorizationIsRejected'           }    true      false       false         0.05558    {1x1 struct}
+    {'round34FinalEngineeringTest/checkpointRejectsIdentityDrift'           }    true      false       false        0.055794    {1x1 struct}
+

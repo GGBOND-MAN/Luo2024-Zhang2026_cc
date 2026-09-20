@@ -1,0 +1,56 @@
+function result = fullArrayAngle(cfg, context, front, protocol)
+%FULLARRAYANGLE Frozen full-aperture conditional VP angle search.
+
+arguments
+    cfg (1, 1) struct
+    context (1, 1) struct
+    front (1, 1) struct
+    protocol (1, 1) struct = r45.config()
+end
+
+timer = tic;
+bounds = [max(cfg.thetaLimitsDeg(1), ...
+    front.thetaDeg-protocol.pfa.angleHalfWidthDeg), ...
+    min(cfg.thetaLimitsDeg(2), ...
+    front.thetaDeg+protocol.pfa.angleHalfWidthDeg)];
+grid = linspace(bounds(1), bounds(2), protocol.pfa.coarseAngleGridSize);
+score = zeros(size(grid));
+for index = 1:numel(grid)
+    score(index) = r38RawArrayVpmlScore( ...
+        cfg, context, grid(index), front.rangeM);
+end
+[gridBestScore, best] = max(score);
+left = max(1, best-1);
+right = min(numel(grid), best+1);
+thetaDeg = grid(best);
+selectedScore = gridBestScore;
+optimizerEvaluations = 0;
+optimizerConverged = false;
+if right > left
+    settings = optimset("TolX", protocol.pfa.tolXDeg, "Display", "off");
+    [candidateTheta, negativeScore, exitflag, details] = fminbnd( ...
+        @(theta) -r38RawArrayVpmlScore( ...
+        cfg, context, theta, front.rangeM), ...
+        grid(left), grid(right), settings);
+    optimizerEvaluations = details.funcCount;
+    optimizerConverged = exitflag > 0 && isfinite(negativeScore);
+    if optimizerConverged && -negativeScore >= selectedScore
+        thetaDeg = candidateTheta;
+        selectedScore = -negativeScore;
+    end
+end
+if selectedScore < gridBestScore-100*eps*max(1, abs(gridBestScore))
+    error("r45:AngleCandidateRetention", ...
+        "P_FA selected an angle below an evaluated grid candidate.");
+end
+result = struct(version="R45-PFA-full-array-angle-v1", ...
+    thetaDeg=thetaDeg, rangeLinearizationM=front.rangeM, ...
+    score=selectedScore, gridBestScore=gridBestScore, ...
+    retentionMargin=selectedScore-gridBestScore, ...
+    boundsDeg=bounds, gridDeg=grid, gridScore=score, ...
+    gridEvaluationCount=numel(grid), ...
+    optimizerEvaluationCount=optimizerEvaluations, ...
+    optimizerConverged=optimizerConverged, ...
+    fullArrayEvaluationCount=numel(grid)+optimizerEvaluations, ...
+    runtimeSeconds=toc(timer));
+end

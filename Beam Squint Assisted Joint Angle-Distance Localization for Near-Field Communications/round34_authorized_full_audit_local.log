@@ -1,0 +1,145 @@
+正在运行 round34FinalEngineeringTest
+.......... ....
+已完成 round34FinalEngineeringTest
+__________
+
+正在运行 algorithmEstimateTest
+.....
+已完成 algorithmEstimateTest
+__________
+
+正在运行 algorithmVersionTest
+.......
+已完成 algorithmVersionTest
+__________
+
+正在运行 deterministicMultipeakFrontTest
+....
+已完成 deterministicMultipeakFrontTest
+__________
+
+正在运行 localMusicLogScoreTest
+....
+已完成 localMusicLogScoreTest
+__________
+
+正在运行 localMusicSpectrumTest
+..
+已完成 localMusicSpectrumTest
+__________
+
+正在运行 localSpectrumDiagnosticsTest
+...
+已完成 localSpectrumDiagnosticsTest
+__________
+
+正在运行 maximizeRangeScoreTest
+......
+已完成 maximizeRangeScoreTest
+__________
+
+正在运行 profileRangeAtAngleTest
+......
+已完成 profileRangeAtAngleTest
+__________
+
+正在运行 profileSnrLambdaTest
+.....
+已完成 profileSnrLambdaTest
+__________
+
+正在运行 round24ConfirmatoryTest
+......
+已完成 round24ConfirmatoryTest
+__________
+
+正在运行 round27ConvergenceTest
+.......
+已完成 round27ConvergenceTest
+__________
+
+正在运行 round27PublishedFormulaAuditTest
+...
+已完成 round27PublishedFormulaAuditTest
+__________
+
+正在运行 round27WorkflowTest
+.....
+已完成 round27WorkflowTest
+__________
+
+正在运行 round28FixedAngleTest
+....
+已完成 round28FixedAngleTest
+__________
+
+正在运行 round29IntegrationTest
+.....
+已完成 round29IntegrationTest
+__________
+
+正在运行 round30LightweightTest
+........
+已完成 round30LightweightTest
+__________
+
+正在运行 round31CorrectnessTest
+.......... ...
+已完成 round31CorrectnessTest
+__________
+
+正在运行 round32FrozenPaTest
+..........
+已完成 round32FrozenPaTest
+__________
+
+正在运行 round33ComplexityLedgerTest
+....
+已完成 round33ComplexityLedgerTest
+__________
+
+正在运行 round33EquivalentAccelerationTest
+.........
+已完成 round33EquivalentAccelerationTest
+__________
+
+正在运行 round34FinalEngineeringTest
+.......... ....
+已完成 round34FinalEngineeringTest
+__________
+
+正在运行 snrReleasedAlphaTest
+...
+已完成 snrReleasedAlphaTest
+__________
+
+正在运行 testFigures1013WithCbs
+Published Proposed and CBS-Low curves for figures [10 11 12 13] written to C:\Users\CWH\AppData\Local\Temp\tpe986ba6e_a362_468d_b654_05de48c396a1
+..
+已完成 testFigures1013WithCbs
+__________
+
+正在运行 testFullSpectrumTheory
+.......... .......... ..........
+已完成 testFullSpectrumTheory
+__________
+
+正在运行 testJadCore
+........
+已完成 testJadCore
+__________
+
+正在运行 testPaperFigureOrganization
+Paper figures 2 written to C:\Users\CWH\AppData\Local\Temp\tpb4eb80e2_eb29_4f86_94ec_391940524bfa
+Published Proposed and CBS-Low curves for figures 10 written to C:\Users\CWH\AppData\Local\Temp\tpb4eb80e2_eb29_4f86_94ec_391940524bfa
+Organized paper figures [2 10] are available in C:\Users\CWH\AppData\Local\Temp\tpb4eb80e2_eb29_4f86_94ec_391940524bfa
+.
+已完成 testPaperFigureOrganization
+__________
+
+ROUND34_AUTHORIZED_PREFLIGHT_PASS server=local-main targeted=14 full=174 static=0 trials=0
+sourceDigest=2d40cca46c84cccd580ba8bfc48d1b2bc74dfc4390920f17c80f00428f0a9684
+designHash=e1f6cc945644e88806432a52d2b6e18d0df026024c279790c9bf26edb9792cd6
+estimator=R33-A-q-only-invariants-direct-EVD-v1
+statistics=R34-R32-frozen-statistics-bootstrap-index-fix-v1
+useFastResponse=1 useGram=0

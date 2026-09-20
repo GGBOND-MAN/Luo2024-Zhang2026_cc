@@ -1,0 +1,209 @@
+function run_round34_engineering_smoke(options)
+%RUN_ROUND34_ENGINEERING_SMOKE Test three old inputs; never create final data.
+
+arguments
+    options.NumWorkers (1, 1) double {mustBeInteger, mustBePositive} = 2
+    options.PoolType (1, 1) string ...
+        {mustBeMember(options.PoolType, ["Threads", "Processes"])} = "Threads"
+end
+
+project = string(fileparts(fileparts(mfilename("fullpath"))));
+addpath(project);
+protocol = r34.config();
+raw = r31.loadRound30Raw(project);
+design = selectDevelopmentRows(raw.pilot.design, ...
+    protocol.development.allowedSeeds);
+design = addvars(design, (1:height(design)).', Before=1, ...
+    NewVariableNames="positionId");
+cfg = raw.pilot.expected.cfg;
+scan = fsjad.prepareScan(cfg);
+pool = preparePool(options.PoolType, options.NumWorkers);
+threadHashAudit = auditWorkerHash(pool, options.PoolType);
+
+hashTimer = tic;
+hashes = r34.prepareInputHashes(cfg, scan, design);
+clientHashSeconds = toc(hashTimer);
+results = cell(height(design), 1);
+parfor index = 1:height(design)
+    results{index} = r34.finalTrial(cfg, scan, design(index, :), ...
+        hashes{index}, protocol);
+end
+if any(cellfun(@(item) ~item.success, results))
+    error("r34:DevelopmentThreadsFailure", ...
+        "At least one of the three fixed development inputs failed.");
+end
+
+replay = fsjad.replayRound27Data(cfg, scan, design(1, :));
+independent = r34.estimate(cfg, replay.observation, replay.snapshots, ...
+    scan, "P_A", protocol);
+shared = results{1};
+paIndex = find(shared.methodNames == "P_A", 1);
+entryComparison = table(design.seed(1), ...
+    abs(independent.thetaDeg-shared.thetaDeg(paIndex)), ...
+    abs(independent.rangeM-shared.rangeM(paIndex)), ...
+    independent.solverAudit.directCount, ...
+    independent.solverAudit.gramSuccessCount, ...
+    independent.solverAudit.fallbackCount, ...
+    'VariableNames', {'seed', 'thetaDifferenceDeg', ...
+    'rangeDifferenceM', 'directEvdCount', 'gramCount', ...
+    'fallbackCount'});
+tolerance = protocol.r33.validation;
+if entryComparison.thetaDifferenceDeg > tolerance.thetaToleranceDeg ...
+        || entryComparison.rangeDifferenceM > tolerance.rangeToleranceM ...
+        || entryComparison.gramCount ~= 0 ...
+        || entryComparison.fallbackCount ~= 0
+    error("r34:IndependentSharedEntryMismatch", ...
+        "The independent P_A entry differs from the shared performance body.");
+end
+
+source = r34.manifest(project);
+sourceDigest = r32.sourceDigest(source);
+developmentDesignHash = r32.designHash(design);
+checkpointIdentity = struct(version="R34-development-checkpoint-test-v1", ...
+    sourceDigest=sourceDigest, designHash=developmentDesignHash, ...
+    dataRole=protocol.development.role);
+folder = fullfile(project, "results", "full_spectrum", ...
+    "round34_final_engineering_v1", "development_smoke");
+if ~isfolder(folder)
+    mkdir(folder);
+end
+checkpointFile = fullfile(folder, "checkpoint_test.mat");
+partialResults = cell(height(design), 1);
+partialHashes = cell(height(design), 1);
+partialResults(1:2) = results(1:2);
+partialHashes(1:2) = hashes(1:2);
+environment = environmentRecord( ...
+    pool, clientHashSeconds, protocol.development.role);
+r34.saveCheckpoint(checkpointFile, checkpointIdentity, design, ...
+    partialResults, partialHashes, environment);
+[resumedResults, resumedHashes, resumedEnvironment] = ...
+    r34.loadCheckpoint(checkpointFile, checkpointIdentity, design);
+resumedResults{3} = results{3};
+resumedHashes{3} = hashes{3};
+r34.saveCheckpoint(checkpointFile, checkpointIdentity, design, ...
+    resumedResults, resumedHashes, resumedEnvironment);
+checkpointPass = isequaln(resumedResults, results) ...
+    && isequaln(resumedHashes, hashes);
+
+mergeIdentity = struct(designHash=developmentDesignHash, ...
+    sourceDigest=sourceDigest);
+payloads = {developmentPayload(design, results, [1; 3], ...
+    mergeIdentity, 1); developmentPayload(design, results, 2, ...
+    mergeIdentity, 2)};
+merged = r34.mergeShardPayloads(design, payloads, mergeIdentity);
+mergePass = isequaln(merged, results);
+if ~checkpointPass || ~mergePass
+    error("r34:DevelopmentResumeOrMergeFailure", ...
+        "Checkpoint resume or miniature shard merge did not preserve rows.");
+end
+
+rows = resultRows(design, results);
+writetable(rows, fullfile(folder, "three_input_outputs.csv"));
+writetable(entryComparison, ...
+    fullfile(folder, "independent_vs_shared_pa.csv"));
+writetable(threadHashAudit, ...
+    fullfile(folder, "thread_worker_java_hash_audit.csv"));
+writetable(source, fullfile(folder, "source_hashes.csv"));
+identity = struct(version="R34-three-existing-input-engineering-smoke-v1", ...
+    protocol=protocol, sourceDigest=sourceDigest, ...
+    developmentDesignHash=developmentDesignHash, ...
+    seeds=design.seed, finalTrialRows=0, ...
+    includedInFutureFinalAnalysis=false, checkpointPass=checkpointPass, ...
+    miniShardMergePass=mergePass, threadsPathExecuted=true);
+save(fullfile(folder, "result.mat"), "identity", "design", ...
+    "results", "hashes", "entryComparison", "threadHashAudit", ...
+    "environment", "source", "-v7.3");
+fprintf("ROUND34_ENGINEERING_SMOKE_COMPLETE users=%d threads=%d " + ...
+    "checkpoint=%d merge=%d finalRows=0\n", height(design), ...
+    pool.NumWorkers, checkpointPass, mergePass);
+delete(pool);
+end
+
+function design = selectDevelopmentRows(fullDesign, seeds)
+rowIndex = zeros(numel(seeds), 1);
+for index = 1:numel(seeds)
+    found = find(fullDesign.seed == seeds(index));
+    if numel(found) ~= 1
+        error("r34:DevelopmentSeedIdentity", ...
+            "Each fixed development seed must occur exactly once.");
+    end
+    rowIndex(index) = found;
+end
+design = fullDesign(rowIndex, :);
+end
+
+function audit = auditWorkerHash(pool, poolType)
+future = parfeval(pool, @r31.arrayHash, 1, complex([1; 2], [3; 4]));
+supported = true;
+identifier = "";
+message = "";
+try
+    fetchOutputs(future);
+catch exception
+    supported = false;
+    identifier = string(exception.identifier);
+    message = string(getReport(exception, "extended", "hyperlinks", "off"));
+end
+if poolType == "Threads" && supported
+    error("r34:UnexpectedThreadJavaHashSupport", ...
+        "The recorded Threads-path assumption changed and requires review.");
+end
+audit = table(poolType, string(class(pool)), pool.NumWorkers, ...
+    supported, identifier, message, ...
+    'VariableNames', {'poolType', 'poolClass', 'workers', ...
+    'r31ArrayHashSupportedOnWorker', 'errorIdentifier', 'errorMessage'});
+end
+
+function pool = preparePool(poolType, workers)
+pool = gcp("nocreate");
+requiredClass = "parallel.ThreadPool";
+if poolType == "Processes"
+    requiredClass = "parallel.ProcessPool";
+end
+if ~isempty(pool) && (pool.NumWorkers ~= workers ...
+        || string(class(pool)) ~= requiredClass)
+    delete(pool);
+    pool = [];
+end
+if isempty(pool)
+    pool = parpool(poolType, workers);
+end
+end
+
+function output = environmentRecord(pool, hashSeconds, dataRole)
+output = struct(matlabVersion=version, computer=computer, ...
+    workers=pool.NumWorkers, poolClass=class(pool), ...
+    clientInputHashSeconds=hashSeconds, dataRole=dataRole, ...
+    timestamp=string(datetime("now")));
+end
+
+function payload = developmentPayload( ...
+    design, results, rows, mergeIdentity, shardIndex)
+rows = rows(:);
+payload.identity = struct( ...
+    version="R34-development-mini-shard-v1", ...
+    protocolDesignHash=mergeIdentity.designHash, ...
+    sourceDigest=mergeIdentity.sourceDigest, ...
+    globalRowIndex=rows, shardIndex=shardIndex);
+payload.design = design(rows, :);
+payload.results = results(rows);
+end
+
+function rows = resultRows(design, results)
+rows = table();
+for index = 1:height(design)
+    item = results{index};
+    for methodIndex = 1:numel(item.methodNames)
+        row = table(item.seed, item.positionId, item.snrDb, ...
+            item.methodNames(methodIndex), item.thetaDeg(methodIndex), ...
+            item.rangeM(methodIndex), item.success, ...
+            item.solverAudit.totalDirectCount, ...
+            item.solverAudit.totalGramCount, ...
+            item.solverAudit.totalFallbackCount, ...
+            'VariableNames', {'seed', 'positionId', 'snrDb', 'method', ...
+            'thetaDeg', 'rangeM', 'success', 'directEvdCount', ...
+            'gramCount', 'fallbackCount'});
+        rows = [rows; row]; %#ok<AGROW>
+    end
+end
+end

@@ -1,0 +1,58 @@
+正在运行 round34FinalEngineeringTest
+......
+================================================================================
+round34FinalEngineeringTest/deliberateAngleBetterAndWorseAreSeparated 中验证失败。
+    --------
+    框架诊断:
+    --------
+    verifyEqual 失败。
+    --> 使用 "isequaln" 确定数值不相等。
+    --> 该误差不在绝对容差范围内。
+    --> 失败表:
+            Index         Actual         Expected           Error               RelativeError        AbsoluteTolerance
+            _____    ________________    ________    ____________________    ____________________    _________________
+                                                                                                                      
+              1      2.25000000000002      2.25      1.82076576038526e-14    8.09229226837892e-15          1e-14      
+              2      2.25000000000002      2.25      1.82076576038526e-14    8.09229226837892e-15          1e-14      
+    
+    实际值:
+       2.250000000000018
+       2.250000000000018
+    预期值:
+       2.250000000000000
+       2.250000000000000
+    --------
+    堆栈信息:
+    --------
+    位置: G:\研究生\Github\Luo2024与Zhang2026\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\matlab\tests\round34FinalEngineeringTest.m (round34FinalEngineeringTest.deliberateAngleBetterAndWorseAreSeparated)，位置: 92
+================================================================================
+.... ....
+已完成 round34FinalEngineeringTest
+__________
+
+失败摘要:
+
+     Name                                                                   Failed  Incomplete  原因
+    ======================================================================================================
+     round34FinalEngineeringTest/deliberateAngleBetterAndWorseAreSeparated    X                 验证失败。
+                                      Name                                       Passed    Failed    Incomplete    Duration       Details   
+    _________________________________________________________________________    ______    ______    __________    _________    ____________
+
+    {'round34FinalEngineeringTest/finalEntryHasNoGramOption'                }    true      false       false          0.2826    {1x1 struct}
+    {'round34FinalEngineeringTest/gramCostIsRejected'                       }    true      false       false         0.12755    {1x1 struct}
+    {'round34FinalEngineeringTest/oldBootstrapExpressionCollapsesColumns'   }    true      false       false        0.086342    {1x1 struct}
+    {'round34FinalEngineeringTest/clusterBootstrapMatchesExplicitLoop'      }    true      false       false        0.014958    {1x1 struct}
+    {'round34FinalEngineeringTest/identicalErrorsAndZeroVarianceAreHandled' }    true      false       false         0.67656    {1x1 struct}
+    {'round34FinalEngineeringTest/deliberateRangeBetterAndWorseAreSeparated'}    true      false       false         0.10943    {1x1 struct}
+    {'round34FinalEngineeringTest/deliberateAngleBetterAndWorseAreSeparated'}    false     true        false          1.0126    {1x1 struct}
+    {'round34FinalEngineeringTest/oneClusterDrawIsSharedAcrossSnr'          }    true      false       false       0.0065395    {1x1 struct}
+    {'round34FinalEngineeringTest/zeroBaselineMseDoesNotCreateAClaim'       }    true      false       false        0.069741    {1x1 struct}
+    {'round34FinalEngineeringTest/inputOrderDoesNotChangeInference'         }    true      false       false         0.13386    {1x1 struct}
+    {'round34FinalEngineeringTest/missingDuplicateAndFailedRowsAreRejected' }    true      false       false        0.052122    {1x1 struct}
+    {'round34FinalEngineeringTest/positionClustersStayOnOneFinalShard'      }    true      false       false         0.10145    {1x1 struct}
+    {'round34FinalEngineeringTest/missingAuthorizationIsRejected'           }    true      false       false         0.04744    {1x1 struct}
+    {'round34FinalEngineeringTest/checkpointRejectsIdentityDrift'           }    true      false       false        0.053614    {1x1 struct}
+
+{错误使用 assert
+断言失败。
+} 

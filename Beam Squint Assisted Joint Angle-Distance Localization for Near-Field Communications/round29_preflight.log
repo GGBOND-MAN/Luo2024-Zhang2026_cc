@@ -1,0 +1,105 @@
+正在运行 algorithmEstimateTest
+.....
+已完成 algorithmEstimateTest
+__________
+
+正在运行 algorithmVersionTest
+.......
+已完成 algorithmVersionTest
+__________
+
+正在运行 deterministicMultipeakFrontTest
+....
+已完成 deterministicMultipeakFrontTest
+__________
+
+正在运行 localMusicLogScoreTest
+....
+已完成 localMusicLogScoreTest
+__________
+
+正在运行 localMusicSpectrumTest
+..
+已完成 localMusicSpectrumTest
+__________
+
+正在运行 localSpectrumDiagnosticsTest
+...
+已完成 localSpectrumDiagnosticsTest
+__________
+
+正在运行 maximizeRangeScoreTest
+......
+已完成 maximizeRangeScoreTest
+__________
+
+正在运行 profileRangeAtAngleTest
+......
+已完成 profileRangeAtAngleTest
+__________
+
+正在运行 profileSnrLambdaTest
+.....
+已完成 profileSnrLambdaTest
+__________
+
+正在运行 round24ConfirmatoryTest
+......
+已完成 round24ConfirmatoryTest
+__________
+
+正在运行 round27ConvergenceTest
+.......
+已完成 round27ConvergenceTest
+__________
+
+正在运行 round27PublishedFormulaAuditTest
+...
+已完成 round27PublishedFormulaAuditTest
+__________
+
+正在运行 round27WorkflowTest
+.....
+已完成 round27WorkflowTest
+__________
+
+正在运行 round28FixedAngleTest
+....
+已完成 round28FixedAngleTest
+__________
+
+正在运行 round29IntegrationTest
+.....
+已完成 round29IntegrationTest
+__________
+
+正在运行 snrReleasedAlphaTest
+...
+已完成 snrReleasedAlphaTest
+__________
+
+正在运行 testFigures1013WithCbs
+Published Proposed and CBS-Low curves for figures [10 11 12 13] written to C:\Users\CWH\AppData\Local\Temp\tpc5da609c_e970_4fcc_b410_9e6db69eef26
+..
+已完成 testFigures1013WithCbs
+__________
+
+正在运行 testFullSpectrumTheory
+.......... .......... ..........
+已完成 testFullSpectrumTheory
+__________
+
+正在运行 testJadCore
+........
+已完成 testJadCore
+__________
+
+正在运行 testPaperFigureOrganization
+Paper figures 2 written to C:\Users\CWH\AppData\Local\Temp\tpad61731c_f8bd_4dbd_b779_47f2178f4a60
+Published Proposed and CBS-Low curves for figures 10 written to C:\Users\CWH\AppData\Local\Temp\tpad61731c_f8bd_4dbd_b779_47f2178f4a60
+Organized paper figures [2 10] are available in C:\Users\CWH\AppData\Local\Temp\tpad61731c_f8bd_4dbd_b779_47f2178f4a60
+.
+已完成 testPaperFigureOrganization
+__________
+
+R29 TESTS passed=116 failed=0 incomplete=0 static=0

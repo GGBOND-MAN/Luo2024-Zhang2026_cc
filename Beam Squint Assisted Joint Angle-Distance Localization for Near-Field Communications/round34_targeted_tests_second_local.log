@@ -1,0 +1,104 @@
+正在运行 round34FinalEngineeringTest
+.......
+================================================================================
+round34FinalEngineeringTest/inputOrderDoesNotChangeInference 中验证失败。
+    --------
+    框架诊断:
+    --------
+    verifyEqual 失败。
+    --> 失败路径: <值>.positionRmseM
+        --> 使用 "isequaln" 确定数值不相等。
+        --> 失败表:
+                Index         Actual              Expected                Error               RelativeError    
+                _____    _________________    _________________    ____________________    ____________________
+                                                                                                               
+                  8      0.260563146173894    0.260563146173894    5.55111512312578e-17    2.13042988029515e-16
+        
+        实际 double:
+           0.208451833844297
+           0.208451833844297
+           0.315572971698836
+           0.315572971698836
+           0.370777839284490
+           0.370777839284490
+           0.260563146173894
+           0.260563146173894
+           0.111346755805988
+           0.111346755805988
+        预期 double:
+           0.208451833844297
+           0.208451833844297
+           0.315572971698836
+           0.315572971698836
+           0.370777839284490
+           0.370777839284490
+           0.260563146173894
+           0.260563146173894
+           0.111346755805988
+           0.111346755805988
+    
+    实际值:
+      10x12 table
+    
+        snrDb       method       n      angleRmseDeg          rangeRmseM          positionRmseM        medianRangeM           p90RangeM            p95RangeM            p99RangeM        missOver1m    top10RangeSseShare
+        _____    ____________    _    _________________    _________________    _________________    _________________    _________________    _________________    _________________    __________    __________________
+    
+         -10     "C_enhanced"    4                 0.12                  0.2    0.208451833844297    0.199999999999999    0.200000000000003    0.200000000000003    0.200000000000003        0         0.250000000000007 
+           0     "C_enhanced"    4                 0.12                  0.2    0.208451833844297    0.199999999999999    0.200000000000003    0.200000000000003    0.200000000000003        0         0.250000000000007 
+         -10     "C_public"      4                  0.2                  0.3    0.315572971698836    0.300000000000001    0.300000000000001    0.300000000000001    0.300000000000001        0         0.250000000000001 
+           0     "C_public"      4                  0.2                  0.3    0.315572971698836    0.300000000000001    0.300000000000001    0.300000000000001    0.300000000000001        0         0.250000000000001 
+         -10     "F_L06"         4                 0.25    0.350000000000001     0.37077783928449    0.350000000000001    0.350000000000001    0.350000000000001    0.350000000000001        0                      0.25 
+           0     "F_L06"         4                 0.25    0.350000000000001     0.37077783928449    0.350000000000001    0.350000000000001    0.350000000000001    0.350000000000001        0                      0.25 
+         -10     "H_A"           4    0.149999999999999                 0.25    0.260563146173894                 0.25                 0.25                 0.25                 0.25        0                      0.25 
+           0     "H_A"           4    0.149999999999999                 0.25    0.260563146173894                 0.25                 0.25                 0.25                 0.25        0                      0.25 
+         -10     "P_A"           4    0.100000000000001    0.100000000000001    0.111346755805988    0.100000000000001    0.100000000000001    0.100000000000001    0.100000000000001        0                      0.25 
+           0     "P_A"           4    0.100000000000001    0.100000000000001    0.111346755805988    0.100000000000001    0.100000000000001    0.100000000000001    0.100000000000001        0                      0.25 
+    预期值:
+      10x12 table
+    
+        snrDb       method       n      angleRmseDeg          rangeRmseM          positionRmseM        medianRangeM           p90RangeM            p95RangeM            p99RangeM        missOver1m    top10RangeSseShare
+        _____    ____________    _    _________________    _________________    _________________    _________________    _________________    _________________    _________________    __________    __________________
+    
+         -10     "C_enhanced"    4                 0.12                  0.2    0.208451833844297    0.199999999999999    0.200000000000003    0.200000000000003    0.200000000000003        0         0.250000000000007 
+           0     "C_enhanced"    4                 0.12                  0.2    0.208451833844297    0.199999999999999    0.200000000000003    0.200000000000003    0.200000000000003        0         0.250000000000007 
+         -10     "C_public"      4                  0.2                  0.3    0.315572971698836    0.300000000000001    0.300000000000001    0.300000000000001    0.300000000000001        0         0.250000000000001 
+           0     "C_public"      4                  0.2                  0.3    0.315572971698836    0.300000000000001    0.300000000000001    0.300000000000001    0.300000000000001        0         0.250000000000001 
+         -10     "F_L06"         4                 0.25    0.350000000000001     0.37077783928449    0.350000000000001    0.350000000000001    0.350000000000001    0.350000000000001        0                      0.25 
+           0     "F_L06"         4                 0.25    0.350000000000001     0.37077783928449    0.350000000000001    0.350000000000001    0.350000000000001    0.350000000000001        0                      0.25 
+         -10     "H_A"           4    0.149999999999999                 0.25    0.260563146173894                 0.25                 0.25                 0.25                 0.25        0                      0.25 
+           0     "H_A"           4    0.149999999999999                 0.25    0.260563146173894                 0.25                 0.25                 0.25                 0.25        0                      0.25 
+         -10     "P_A"           4    0.100000000000001    0.100000000000001    0.111346755805988    0.100000000000001    0.100000000000001    0.100000000000001    0.100000000000001        0                      0.25 
+           0     "P_A"           4    0.100000000000001    0.100000000000001    0.111346755805988    0.100000000000001    0.100000000000001    0.100000000000001    0.100000000000001        0                      0.25 
+    --------
+    堆栈信息:
+    --------
+    位置: G:\研究生\Github\Luo2024与Zhang2026\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\matlab\tests\round34FinalEngineeringTest.m (round34FinalEngineeringTest.inputOrderDoesNotChangeInference)，位置: 99
+================================================================================
+... ..
+已完成 round34FinalEngineeringTest
+__________
+
+失败摘要:
+
+     Name                                                          Failed  Incomplete  原因
+    =============================================================================================
+     round34FinalEngineeringTest/inputOrderDoesNotChangeInference    X                 验证失败。
+                                      Name                                       Passed    Failed    Incomplete    Duration      Details   
+    _________________________________________________________________________    ______    ______    __________    ________    ____________
+
+    {'round34FinalEngineeringTest/finalEntryHasNoGramOption'                }    true      false       false        0.22581    {1x1 struct}
+    {'round34FinalEngineeringTest/gramCostIsRejected'                       }    true      false       false        0.12779    {1x1 struct}
+    {'round34FinalEngineeringTest/oldBootstrapExpressionCollapsesColumns'   }    true      false       false        0.08062    {1x1 struct}
+    {'round34FinalEngineeringTest/clusterBootstrapMatchesExplicitLoop'      }    true      false       false       0.015116    {1x1 struct}
+    {'round34FinalEngineeringTest/identicalErrorsAndZeroVarianceAreHandled' }    true      false       false          0.871    {1x1 struct}
+    {'round34FinalEngineeringTest/deliberateRangeBetterAndWorseAreSeparated'}    true      false       false        0.12576    {1x1 struct}
+    {'round34FinalEngineeringTest/zeroBaselineMseDoesNotCreateAClaim'       }    true      false       false       0.031491    {1x1 struct}
+    {'round34FinalEngineeringTest/inputOrderDoesNotChangeInference'         }    false     true        false         1.3857    {1x1 struct}
+    {'round34FinalEngineeringTest/missingDuplicateAndFailedRowsAreRejected' }    true      false       false       0.064961    {1x1 struct}
+    {'round34FinalEngineeringTest/positionClustersStayOnOneFinalShard'      }    true      false       false        0.11388    {1x1 struct}
+    {'round34FinalEngineeringTest/missingAuthorizationIsRejected'           }    true      false       false       0.051787    {1x1 struct}
+    {'round34FinalEngineeringTest/checkpointRejectsIdentityDrift'           }    true      false       false       0.060834    {1x1 struct}
+
+{错误使用 assert
+断言失败。
+} 

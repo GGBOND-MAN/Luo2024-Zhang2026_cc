@@ -1,0 +1,195 @@
+正在运行 round34FinalEngineeringTest
+....
+================================================================================
+round34FinalEngineeringTest/identicalErrorsAndZeroVarianceAreHandled 中出现错误并且未运行完毕。
+    --------
+    错误 ID:
+    --------
+    'MATLAB:table:InvalidVarSubscript'
+    -----------
+    错误详细信息:
+    -----------
+    错误使用 () (第 132 行)
+    表变量下标必须为包含正实整数的数值数组、逻辑数组、字符向量、字符串数组、字符向量元胞数组或用于匹配变量名称的模式标量。
+    
+    出错 r34.summarizePaired>validateInputs (第 69 行)
+    keys = design(:, {"positionId", "snrDb"});
+    
+    出错 r34.summarizePaired (第 12 行)
+    validateInputs(design, results, protocol);
+    
+    出错 round34FinalEngineeringTest/identicalErrorsAndZeroVarianceAreHandled (第 57 行)
+                output = r34.summarizePaired(design, results, protocol);
+================================================================================
+.
+================================================================================
+round34FinalEngineeringTest/deliberateRangeBetterAndWorseAreSeparated 中出现错误并且未运行完毕。
+    --------
+    错误 ID:
+    --------
+    'MATLAB:table:InvalidVarSubscript'
+    -----------
+    错误详细信息:
+    -----------
+    错误使用 () (第 132 行)
+    表变量下标必须为包含正实整数的数值数组、逻辑数组、字符向量、字符串数组、字符向量元胞数组或用于匹配变量名称的模式标量。
+    
+    出错 r34.summarizePaired>validateInputs (第 69 行)
+    keys = design(:, {"positionId", "snrDb"});
+    
+    出错 r34.summarizePaired (第 12 行)
+    validateInputs(design, results, protocol);
+    
+    出错 round34FinalEngineeringTest/deliberateRangeBetterAndWorseAreSeparated (第 73 行)
+                betterOutput = r34.summarizePaired(design, better, protocol);
+================================================================================
+.
+================================================================================
+round34FinalEngineeringTest/zeroBaselineMseDoesNotCreateAClaim 中出现错误并且未运行完毕。
+    --------
+    错误 ID:
+    --------
+    'MATLAB:table:InvalidVarSubscript'
+    -----------
+    错误详细信息:
+    -----------
+    错误使用 () (第 132 行)
+    表变量下标必须为包含正实整数的数值数组、逻辑数组、字符向量、字符串数组、字符向量元胞数组或用于匹配变量名称的模式标量。
+    
+    出错 r34.summarizePaired>validateInputs (第 69 行)
+    keys = design(:, {"positionId", "snrDb"});
+    
+    出错 r34.summarizePaired (第 12 行)
+    validateInputs(design, results, protocol);
+    
+    出错 round34FinalEngineeringTest/zeroBaselineMseDoesNotCreateAClaim (第 84 行)
+                output = r34.summarizePaired(design, results, protocol);
+================================================================================
+.
+================================================================================
+round34FinalEngineeringTest/inputOrderDoesNotChangeInference 中出现错误并且未运行完毕。
+    --------
+    错误 ID:
+    --------
+    'MATLAB:table:InvalidVarSubscript'
+    -----------
+    错误详细信息:
+    -----------
+    错误使用 () (第 132 行)
+    表变量下标必须为包含正实整数的数值数组、逻辑数组、字符向量、字符串数组、字符向量元胞数组或用于匹配变量名称的模式标量。
+    
+    出错 r34.summarizePaired>validateInputs (第 69 行)
+    keys = design(:, {"positionId", "snrDb"});
+    
+    出错 r34.summarizePaired (第 12 行)
+    validateInputs(design, results, protocol);
+    
+    出错 round34FinalEngineeringTest/inputOrderDoesNotChangeInference (第 94 行)
+                reference = r34.summarizePaired(design, results, protocol);
+================================================================================
+.
+================================================================================
+round34FinalEngineeringTest/missingDuplicateAndFailedRowsAreRejected 中验证失败。
+    --------
+    框架诊断:
+    --------
+    verifyError 失败。
+    --> 该函数引发错误的异常。
+        
+        实际异常:
+            'MATLAB:table:InvalidVarSubscript'
+        预期的异常:
+            'r34:DuplicateFinalRows'
+    --> 实际错误报告:
+            错误使用 () (第 132 行)
+            表变量下标必须为包含正实整数的数值数组、逻辑数组、字符向量、字符串数组、字符向量元胞数组或用于匹配变量名称的模式标量。
+            
+            出错 r34.summarizePaired>validateInputs (第 69 行)
+            keys = design(:, {"positionId", "snrDb"});
+            
+            出错 r34.summarizePaired (第 12 行)
+            validateInputs(design, results, protocol);
+            
+            出错 round34FinalEngineeringTest>@()r34.summarizePaired(duplicate,results,protocol) (第 115 行)
+                        testCase.verifyError(@() r34.summarizePaired( ...
+    
+    计算的函数:
+      包含以下值的 function_handle:
+    
+        @()r34.summarizePaired(duplicate,results,protocol)
+    --------
+    堆栈信息:
+    --------
+    位置: G:\研究生\Github\Luo2024与Zhang2026\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\matlab\tests\round34FinalEngineeringTest.m (round34FinalEngineeringTest.missingDuplicateAndFailedRowsAreRejected)，位置: 115
+================================================================================
+
+================================================================================
+round34FinalEngineeringTest/missingDuplicateAndFailedRowsAreRejected 中验证失败。
+    --------
+    框架诊断:
+    --------
+    verifyError 失败。
+    --> 该函数引发错误的异常。
+        
+        实际异常:
+            'MATLAB:table:InvalidVarSubscript'
+        预期的异常:
+            'r34:FinalFailuresRequireAudit'
+    --> 实际错误报告:
+            错误使用 () (第 132 行)
+            表变量下标必须为包含正实整数的数值数组、逻辑数组、字符向量、字符串数组、字符向量元胞数组或用于匹配变量名称的模式标量。
+            
+            出错 r34.summarizePaired>validateInputs (第 69 行)
+            keys = design(:, {"positionId", "snrDb"});
+            
+            出错 r34.summarizePaired (第 12 行)
+            validateInputs(design, results, protocol);
+            
+            出错 round34FinalEngineeringTest>@()r34.summarizePaired(design,failed,protocol) (第 120 行)
+                        testCase.verifyError(@() r34.summarizePaired( ...
+    
+    计算的函数:
+      包含以下值的 function_handle:
+    
+        @()r34.summarizePaired(design,failed,protocol)
+    --------
+    堆栈信息:
+    --------
+    位置: G:\研究生\Github\Luo2024与Zhang2026\Beam Squint Assisted Joint Angle-Distance Localization for Near-Field Communications\matlab\tests\round34FinalEngineeringTest.m (round34FinalEngineeringTest.missingDuplicateAndFailedRowsAreRejected)，位置: 120
+================================================================================
+.. ..
+已完成 round34FinalEngineeringTest
+__________
+
+失败摘要:
+
+     Name                                                                   Failed  Incomplete  原因
+    ======================================================================================================
+     round34FinalEngineeringTest/identicalErrorsAndZeroVarianceAreHandled     X         X       出错。
+    ------------------------------------------------------------------------------------------------------
+     round34FinalEngineeringTest/deliberateRangeBetterAndWorseAreSeparated    X         X       出错。
+    ------------------------------------------------------------------------------------------------------
+     round34FinalEngineeringTest/zeroBaselineMseDoesNotCreateAClaim           X         X       出错。
+    ------------------------------------------------------------------------------------------------------
+     round34FinalEngineeringTest/inputOrderDoesNotChangeInference             X         X       出错。
+    ------------------------------------------------------------------------------------------------------
+     round34FinalEngineeringTest/missingDuplicateAndFailedRowsAreRejected     X                 验证失败。
+                                      Name                                       Passed    Failed    Incomplete    Duration      Details   
+    _________________________________________________________________________    ______    ______    __________    ________    ____________
+
+    {'round34FinalEngineeringTest/finalEntryHasNoGramOption'                }    true      false       false        0.55039    {1x1 struct}
+    {'round34FinalEngineeringTest/gramCostIsRejected'                       }    true      false       false         0.2393    {1x1 struct}
+    {'round34FinalEngineeringTest/oldBootstrapExpressionCollapsesColumns'   }    true      false       false        0.16719    {1x1 struct}
+    {'round34FinalEngineeringTest/clusterBootstrapMatchesExplicitLoop'      }    true      false       false       0.014313    {1x1 struct}
+    {'round34FinalEngineeringTest/identicalErrorsAndZeroVarianceAreHandled' }    false     true        true         0.49265    {1x1 struct}
+    {'round34FinalEngineeringTest/deliberateRangeBetterAndWorseAreSeparated'}    false     true        true        0.019543    {1x1 struct}
+    {'round34FinalEngineeringTest/zeroBaselineMseDoesNotCreateAClaim'       }    false     true        true        0.024964    {1x1 struct}
+    {'round34FinalEngineeringTest/inputOrderDoesNotChangeInference'         }    false     true        true        0.012762    {1x1 struct}
+    {'round34FinalEngineeringTest/missingDuplicateAndFailedRowsAreRejected' }    false     true        false         1.1313    {1x1 struct}
+    {'round34FinalEngineeringTest/positionClustersStayOnOneFinalShard'      }    true      false       false        0.38827    {1x1 struct}
+    {'round34FinalEngineeringTest/missingAuthorizationIsRejected'           }    true      false       false       0.054106    {1x1 struct}
+    {'round34FinalEngineeringTest/checkpointRejectsIdentityDrift'           }    true      false       false        0.16481    {1x1 struct}
+
+{错误使用 assert
+断言失败。
+} 
