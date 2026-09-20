@@ -129,6 +129,35 @@ classdef round57CoherentRangeTest < matlab.unittest.TestCase
             testCase.verifyLessThan(tauToFalf, tauToCoherent);
         end
 
+        function testLazyBranchEvaluationMatchesFullEvaluation(testCase)
+            % The range search requests one branch at a time, so a single
+            % requested branch must score identically to the full set.
+            protocol = r57.config();
+            design = r57.design(protocol, "smoke");
+            cfg = jad.defaultConfig();
+            scan = fsjad.prepareScan(cfg);
+            replay = fsjad.replayRound27Data(cfg, scan, design(1, :));
+            carrierIndex = (0:protocol.base.base.pfa.carrierCount-1).';
+            context = r42.prepareContext(cfg, scan, replay.observation, ...
+                replay.snapshots(:, carrierIndex+1), carrierIndex);
+            phaseBasis = r57.basis(context, protocol);
+            theta = double(design.truthThetaDeg(1));
+            rangeM = double(design.truthRangeM(1));
+            full = r57.likelihoodState(cfg, context, phaseBasis, ...
+                theta, rangeM, protocol);
+            for branch = ["P_FACR", "P_FALF", "P_FACR_A", ...
+                    "P_FACR_D", "P_FACR_T", "P_FACR_Yonly"]
+                one = r57.likelihoodState(cfg, context, phaseBasis, ...
+                    theta, rangeM, protocol, branch);
+                testCase.verifyEqual(one.(branch), full.(branch), ...
+                    "RelTol", 1e-12);
+            end
+            single = r57.likelihoodState(cfg, context, phaseBasis, ...
+                theta, rangeM, protocol, "P_FACR");
+            testCase.verifyTrue(isnan(single.P_FALF));
+            testCase.verifyTrue(isnan(single.P_FACR_T));
+        end
+
         function testGateLimitsAreNotWeakenedRelativeToR56(testCase)
             protocol = r57.config();
             testCase.verifyEqual( ...

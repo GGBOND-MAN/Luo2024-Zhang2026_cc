@@ -8,6 +8,8 @@ arguments
     scan (1, 1) struct
     front (1, 1) struct
     protocol (1, 1) struct = r57.config()
+    options.Branches (1, :) string = ["P_FACR", "P_FACR_A", ...
+        "P_FACR_D", "P_FACR_T", "P_FACR_Yonly"]
 end
 
 timer = tic;
@@ -15,7 +17,7 @@ base = r53.fromFront(cfg, observation, snapshots, scan, front, protocol.base);
 thetaDeg = base.P_FA.thetaDeg;
 phaseBasis = r57.basis(base.context, protocol);
 
-branches = ["P_FACR", "P_FACR_A", "P_FACR_D", "P_FACR_T", "P_FACR_Yonly"];
+branches = options.Branches;
 profiles = struct();
 result = struct(version=protocol.version, ...
     P_FA=base.P_FA, P_FALF=base.P_FALF);

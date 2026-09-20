@@ -904,6 +904,44 @@ MSE 到 0.5% 以内，bootstrap 区间上界 0.99639**。定理1 得到端到端
 
 **定理1 现在有 MATLAB 侧端到端证据**：自由 `tau` 分支在冻结管线上复现 `P_FALF` 到 0.17%。
 
+### 运行时间与 G10：一个实现缺陷与修正
+
+smoke 实测 `meanCompleteBackendSeconds = 138.32 s/row`（21行、8 worker、墙钟 705.92 s、
+33.615 s/row）。这**远超**7.6节「约2倍 P_FALF」的估计（R53 实测 P_FALF 完整在线
+`8.0974 s/user`）——约17倍。原因是实现缺陷，不是方法本身：
+
+1. `fromFront` 对5个消融分支各调一次 `profileRange`；
+2. 原 `likelihoodState` 在**每个 `r` 评估点把六个分支全部算一遍**，其中
+   `P_FACR_D` 含2维 `fminsearch`（至多200次迭代 × K 向量），
+   `P_FACR_T` 含201点 `tau` 网格 + `fminbnd`；
+3. 于是两个昂贵分支被重复计算5次。
+
+**修正（v2，不改任何Gate与门限）**：
+
+- `r57.gainModels` / `r57.likelihoodState` 增加 `models` / `branches` 入参，
+  只计算被请求的分支；未请求的返回 `NaN`。无请求分支使用标量块时，`q` 与
+  `scoreZ` 整体跳过（`P_FACR_Yonly` 即如此）。
+- `r57.profileRange` 只请求当前正在最大化的那一个分支。
+- `r57.fromFront` 增加 `Branches` 选项。
+- 新增 `r57.estimatePFACR`：可部署路径 = 冻结L06前端 + 冻结P_FA角度 + 一次相干距离
+  profile，**不执行任何消融分支**。
+- 新增 `r57.matchedTiming` 与 `experiments/benchmark_round57_coherent_range_runtime.m`。
+
+**G10 的计时对象说明**：`protocol.timing.methods` 自 v1 起就是
+`["P_FACR", "C_enhanced"]`，即 G10 一直定义在可部署主方法上，不是消融全路径。
+这与 R53 的先例一致——R53 文档明确「该计时……不包含只用于报告的Y-only诊断profile」。
+本次只是补上实现，**没有修改 G10 的定义或门限**。
+
+计时行取自**已经跑过的 smoke 设计**（`positionIds=1:3`，`0 dB`），
+不触碰任何未读的 development 行。
+
+新增单元测试 `testLazyBranchEvaluationMatchesFullEvaluation`：对六个分支逐一验证
+「只请求该分支」与「请求全部分支」给出相同得分（`RelTol=1e-12`），
+并验证未请求分支确为 `NaN`。
+
+**尚未测得**：修正后 `P_FACR` 单分支的实际运行时间与 G10 比值。在 G10 实测之前，
+不得声称 R57 具有复杂度优势。
+
 ### development 前必须盯住的一点
 
 `-5 dB` 与 `15 dB` 的效率为 `0.3456` / `0.3380`，贴近 G9 下界 `0.3`。

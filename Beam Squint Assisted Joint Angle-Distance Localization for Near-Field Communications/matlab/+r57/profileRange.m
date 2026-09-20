@@ -33,7 +33,7 @@ result.runtimeSeconds = toc(timer);
         values = zeros(size(rangeValues));
         for index = 1:numel(rangeValues)
             state = r57.likelihoodState(cfg, context, phaseBasis, ...
-                thetaDeg, rangeValues(index), protocol);
+                thetaDeg, rangeValues(index), protocol, branch);
             values(index) = state.(branch);
         end
     end
