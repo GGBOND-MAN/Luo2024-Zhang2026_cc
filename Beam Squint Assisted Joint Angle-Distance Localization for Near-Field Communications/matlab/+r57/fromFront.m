@@ -1,4 +1,4 @@
-function result = fromFront(cfg, observation, snapshots, scan, front, protocol)
+function result = fromFront(cfg, observation, snapshots, scan, front, protocol, options)
 %FROMFRONT Run frozen P_FA and P_FALF, then every R57 coherent range branch.
 
 arguments
